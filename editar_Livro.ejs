@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Editar Livro</title>
+</head>
+<body>
+    <div class="container">
+        <header class="row">
+            <div class="col-12 bg-info d-flex justify-content-center">
+                <img src="/img/VIRTUAL ARCADE.jpg">
+            </div>
+        </header>
+        <div class="row">
+            <div class="col">
+                <h1 class="mt-5 display-1">Editar Livro</h1>
+                <form action="/editarLivro" method="POST">
+                    <div class="form-group">
+                        <label for="titulo">Título</label>
+                        <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Digite o nome do livro" required onblur="validaTitulo()" value="<%=livro_item.titulo%>">
+                    </div>
+                    <div class="form-group">
+                        <label for="autor">Autor</label>
+                        <input type="text" class="form-control" id="autor" name="autor" placeholder="Informe o autor" required onblur="validaAutor()" value="<%=livro_item.autor%>">
+                    </div>
+                    <div class="form-group">
+                        <label for="genero">Gênero</label>
+                        <input type="text" class="form-control" id="genero" name="genero" placeholder="Informe o genero"  required onblur="validaGenero()" value="<%=livro_item.genero%>">
+                    </div>
+                    <div class="form-group">
+                        <label for="isbn">ISBN</label>
+                        <input type="text" class="form-control" id="isbn" name="isbn" placeholder="Informe o código ISBN" minlength="10" maxlength="13" required onblur="validaisbn()" value="<%=livro_item.isbn%>" >
+                    </div>
+                    <input type="hidden" name="id" value="<%= livro_item._id %>">
+                    <button type="submit" class="btn btn-outline-info">EDITAR</button>
+                    <button type="button" class="btn btn-outline-warning"><a href="/livros">Voltar</a></button>                    
+                </form>
+            </div>
+        </div>
+        <footer class="row mt-2">
+            <div class="col-12 jumbotron jumbotron-fluid bg-info">
+                <p class="text-center">&copy;2021</p>                
+            </div>
+        </footer>
+    </div>
+
+
+    
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="/js/script.js"></script>
+    
+    
+</body>
+</html>
