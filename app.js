@@ -58,15 +58,22 @@ app.get("/livros", (req, res)=>{
     })     
 });
 
-app.post("/livros", (req, res)=>{ 
-    let consulta = req.body.busca;
-    Livros.find({consulta}, (req, res)=>{ 
-        //console.log(consulta);
-        if(err)
-            return res.status(500).send("Erro ao consultar livro")
-        res.render("livros", {livros_itens:livro});
-    });
-});
+// app.post("/livros", (req, res)=>{ 
+//     let consulta = req.body.busca;
+//     Livros.find({consulta}, (req, res)=>{ 
+//         //console.log(consulta);
+//         if(err)
+//             return res.status(500).send("Erro ao consultar livro");
+//         res.render("livros", {livros_itens:livro});
+
+//         if(err)
+// 			return res.status(500).send("Erro ao consultar livro");
+// 		livro.titulo = req.body.titulo;
+// 		livro.autor = req.body.autor;
+// 		livro.genero = req.body.genero;
+//         livro.isbn = req.body.isbn;
+//     });
+// });
 
 
 app.get("/deletarLivro/:id", (req,res)=>{ 
