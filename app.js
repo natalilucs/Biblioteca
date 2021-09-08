@@ -21,12 +21,8 @@ app.use(express.json());
 app.use(express.static("public"));
 
 app.get("/", (req, res) => { 
-    res.send("Página inicial");
+    res.render("index")
 });
-
-// app.get("/", (req, res) => {
-//     res.sendFile(__dirname+"/src/index.html");    
-// });
 
 app.get("/cadastroLivros", (req, res)=>{
     res.render("cadastro_Livros")
@@ -58,20 +54,13 @@ app.get("/livros", (req, res)=>{
     })     
 });
 
-// app.post("/livros", (req, res)=>{ 
-//     let consulta = req.body.busca;
-//     Livros.find({consulta}, (req, res)=>{ 
+// app.post("/buscar", (req, res)=>{
+//     let acheolivro = req.body.query;
+//     Livros.find({titulo:acheolivro}, {genero:acheolivro},{autor:acheolivro}, {isbn:acheolivro}, (err, livro)=>{ 
 //         //console.log(consulta);
 //         if(err)
 //             return res.status(500).send("Erro ao consultar livro");
-//         res.render("livros", {livros_itens:livro});
-
-//         if(err)
-// 			return res.status(500).send("Erro ao consultar livro");
-// 		livro.titulo = req.body.titulo;
-// 		livro.autor = req.body.autor;
-// 		livro.genero = req.body.genero;
-//         livro.isbn = req.body.isbn;
+//         res.render("livros", {livros_itens:livros});
 //     });
 // });
 
