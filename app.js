@@ -1,8 +1,16 @@
 const express = require("express"); 
 const mongoose = require("mongoose"); 
 
+const session = require("express-session"); //login
+const bodyParser = require("body-parser"); // inserido para o login
+
+
 const app = express(); 
-const port = 8000; 
+const port = 5000; 
+//var path = require("path"); //login
+
+var login="admin"; //login
+var password ="654123"
 
 mongoose.connect("mongodb+srv://natali_lucas:natali_lucas@cluster0.pk7gr.mongodb.net/biblioteca?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology:true}) //7 conectando o banco de dados, use... evita a depreciação do mongoose, são chamadas de flag e agem igual ao meta do html
 
@@ -16,9 +24,33 @@ const Livros = mongoose.model("Livros", {
 
 app.set("view engine", "ejs");
 app.set("views", __dirname, "/views");
+
+app.use(session({secret: "essaeminhasenha"}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); //login
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
+
+
+app.post("/", (req, res) => { 
+    if(req.body.password == password && req.body.login == login){
+        //Você está logado!
+        req.session.login = login; 
+        res.render("livrosdel", {login: login});
+    } else{
+        res.render("index") // login 1
+    }  
+});
+
+app.get("/", (req, res) => {
+    if(req.session.login){
+        res.render("livrosdel", {login: login});
+    }else{    
+        res.render("index")
+    };
+});
+
 
 app.get("/", (req, res) => { 
     res.render("index")
@@ -51,18 +83,18 @@ app.get("/livros", (req, res)=>{
         if(err)
             return res.status(500).send("Erro ao consultar livro")
         res.render("livros", {livros_itens:livro});
-    })     
+    });     
 });
 
-// app.post("/buscar", (req, res)=>{
-//     let acheolivro = req.body.query;
-//     Livros.find({titulo:acheolivro}, {genero:acheolivro},{autor:acheolivro}, {isbn:acheolivro}, (err, livro)=>{ 
-//         //console.log(consulta);
-//         if(err)
-//             return res.status(500).send("Erro ao consultar livro");
-//         res.render("livros", {livros_itens:livros});
-//     });
-// });
+app.get("/pesquisar", (req, res)=>{
+    var acheolivro = req.query.pequisar;
+    Livros.find({$or:[{titulo:acheolivro}, {genero:acheolivro},{autor:acheolivro}, {isbn:acheolivro}]}, (err, livro)=>{ 
+        //console.log(consulta);
+        if(err)
+            return res.status(500).send("Erro ao consultar livro");
+        res.render("livros", {livros_itens:livro});
+    });
+});
 
 
 app.get("/deletarLivro/:id", (req,res)=>{ 
@@ -80,7 +112,7 @@ app.get("/editarLivro/:id", (req,res)=>{
 	Livros.findById(id, (err, livro)=>{
 		if(err)
 			return res.status(500).send("Erro ao consultar livro");
-		res.render("editar_Livro",{livro_item:livro});
+		res.render("editar_Livro",{livros_itens: livro});
 	});
 });
 
@@ -107,3 +139,4 @@ app.post("/editarLivro", (req,res)=>{
 app.listen(port, ()=> {
     console.log("Servidor rodando na porta " + port);
 });
+

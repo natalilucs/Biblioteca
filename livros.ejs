@@ -15,30 +15,27 @@
                 <img src="/img/VIRTUAL ARCADE.jpg">
             </div>
         </header>
-
-        <div class="row">
+             
+        <div class="row mt-2">                        
             <div class="col -12 infor">
                 <h1 class="display-1"> Lista de livros</h1>
                 <div class="row mt-5">
                     <div class="col-6">
                         <div class="row my-5">
-                            <a href="/cadastroLivros" class="btn btn-outline-info"> Inserir Novo Livro</a>
-                        </div>                                               
+                            <a href="/cadastroLivros" class="btn btn-outline-info ml-1"> Inserir Novo Livro</a>
+                            <a href="/" class="btn btn-outline-info"> Menu Principal</a>
+                        </div>
                     </div>
-                    <div class="col-6 infor">                        
-                        <div >
-                            <form action="buscar" method="post"  class="form" id="busca">
-                                <div class="row my-4">
-                                    <div class="col">
-                                        <label>Buscar por título</label>
-                                        <input type="text" name="busca" class="form-control">
-                                    </div>
-                                    <div class="col d-flex align-items-end">
-                                        <button type="submit" class="btn btn-outline-secondary">Filtrar</button>
-                                    </div>
-                                </div>
-                            </form>            
-                        </div>                        
+                    <div class="col-6 infor">
+                        <div class="row my-4">
+                            <div class="col">                
+                                <form action="/pesquisar" method="GET" class="form" id="pesquisar">
+                                    <label>Buscar por título</label>
+                                    <input type="text" name="pesquisar" class="form-control">
+                                    <button type="submit" class="btn btn-outline-secondary">Filtrar</button>           
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <table class="table table-hover">
@@ -50,23 +47,23 @@
                             <th>ISBN</th>                            
                         </tr>
                     </thead>
-                    <tbody> 
-                        <!-- foreach está percorrendo a collection para buscar os itens -->
-                        <% if(livros_itens ==""){%>
+                    <tbody>
+                        <%var livros_itens; %>                        
+                        <% if(livros_itens == ""){ %>
                             <tr>
                                 <td colspan="4" class="alert alert-warning"> Nenhum livro cadastrado!</td>
                             </tr>
-                        <%}else{livros_itens.forEach(function(livros){ %>
-                            <tr>
-                                <!-- aqui efetuamos a chamada para o resultado/valor do banco aparecer -->
+                        <% } else {livros_itens.forEach(function(livros){ %>
+                            <tr>                            
                                 <td><%=livros.titulo%></td> 
                                 <td><%=livros.autor%></td>
                                 <td><%=livros.genero%></td>
                                 <td><%=livros.isbn%></td>
                                 
                                 <td>
+                                    
                                     <a href="/editarLivro/<%=livros._id%>" class="btn btn-info">Editar</a>
-                                    <a href="/deletarLivro/<%=livros._id%>" class="btn btn-danger">Excluir</a>   
+                                    <!-- <a href="/deletarLivro/<%=livros._id%>" class="btn btn-danger">Excluir</a>  -->
                                 </td>
                             </tr>
                         <% })} %>

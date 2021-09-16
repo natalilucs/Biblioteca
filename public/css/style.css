@@ -8,3 +8,12 @@
 .infor{
     background-color: gainsboro;
 }
+
+
+#texto-menu{
+    font-size: medium;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bolder;
+    color: hotpink;
+    font-size: 24px;
+}
